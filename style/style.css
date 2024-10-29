@@ -9,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    width: 100vw;
+    width: 100%;
     img{
         height: 40px; /* 設定 logo 的高度 */
         margin-right: 20px;
