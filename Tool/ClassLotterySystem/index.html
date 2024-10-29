@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="icon" href="/img/Logo-s.png">
+    <title>抽籤系統</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="page">
+        <header class="header">
+            <h1>抽籤系統</h1>
+        </header>
+        
+        <!-- 顯示區 -->
+        <section class="display">
+            <h1 id="display-number">#</h1>
+        </section>
+
+        <!-- 控制台 -->
+        <section class="console">
+            <div class="controls">
+                <textarea id="content" placeholder="輸入內容..."></textarea>
+                <div class="buttons">
+                    <button onclick="start()" class="action-btn">開始</button>
+                    <button id="reset" onclick="reset()" class="reset-btn">重設</button>
+                    <button onclick="save()" class="save-btn">儲存</button>
+                    <button onclick="load()" class="load-btn">讀取</button>
+                </div>
+            </div>
+            <div class="batch">
+                <h2>批量增加</h2>
+                <div class="batch-input">
+                    <input id="start" type="text" placeholder="開始">
+                    <span>至</span>
+                    <input id="end" type="text" placeholder="結束">
+                </div>
+                <button onclick="batch()" class="batch-btn">增加</button>
+            </div>
+            <!-- 自動抽籤 checkbox -->
+            <div id="checkbox-container">
+                <input type="checkbox" id="auto-draw">
+                <label for="auto-draw">自動抽籤</label>
+            </div>
+        </section>
+
+        <!-- 抽籤結果區域 -->
+        <section id="result-section">
+            <h2>抽籤結果</h2>
+            <ul id="result-list"></ul>
+        </section>
+
+        <footer class="footer">
+            <h1>作者: 80706</h1>
+            <h1>開源連結: <a href="https://github.com/SWXDC/DrawLots" target="_blank">連結</a></h1>
+        </footer>
+    </div>
+    <script src="/script/bar.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
