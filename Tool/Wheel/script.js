@@ -16,7 +16,7 @@ function setCookie(name, value, days) {
 // 初始化 textarea 的內容
 function initializeContent() {
     const savedContent = readCookie("savedContent");
-    content.value = savedContent ? decodeURIComponent(savedContent) : DEFAULT_CONTENT;
+    inputContent.value = savedContent ? decodeURIComponent(savedContent) : DEFAULT_CONTENT;
 }
 
 // 儲存 textarea 的內容到 cookie
@@ -35,6 +35,8 @@ function loadContent() {
     } else {
         alert("沒有找到儲存的內容!"); // 如果沒有找到，則顯示提示
     }
+    updateWheelSegments();
+    renderWheel();
 }
 
 // 用戶資料輸入
@@ -45,6 +47,7 @@ const DEFAULT_CONTENT = "1\n2\n3\n4\n5\n6";
 const displayResultElement = document.querySelector("#resultDisplay");
 const prizeRecordTable = document.querySelector("#recordList");
 
+let autoDrawTime = 0;
 let wheelSegments = []; // 將 segments 定義為全局變量
 
 // 更新轉盤的選項
@@ -147,7 +150,7 @@ function recordPrize() {
     if (checkbox.checked) {
         const newRow = document.createElement("tr");
         newRow.innerHTML = `<th>${prizeRecordTable.children.length + 1}.</th><td>${displayResultElement.textContent}</td>`;
-        prizeRecordTable.appendChild(newRow);
+        prizeRecordTable.appendChild(newRow); 
         console.log(prizeRecordTable.innerHTML);
     }
 }
@@ -163,6 +166,12 @@ function showSpinResult() {
     } else {
         displayResultElement.textContent = "請輸入選項";
     }
+    if(document.getElementById("auto-draw").checked & wheelSegments.length > 0){
+        start();
+
+    }
+    updateWheelSegments()
+
 }
 
 // 批量生成數字
@@ -207,7 +216,9 @@ function autoRemove() {
 
 // Console
 function start() {
-    startWheelSpin();
+    if(wheelSegments.length != 0){
+        startWheelSpin();
+    }
 }
 
 function reset() {
@@ -217,4 +228,6 @@ function reset() {
 
 // 初始化轉盤
 initializeWheelContent();
+initializeContent();
+updateWheelSegments();
 renderWheel();
