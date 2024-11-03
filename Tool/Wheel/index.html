@@ -25,12 +25,12 @@
                         <button id="resetBtn" onclick="reset()">重設</button>
                         <hr>
                         <div class="save-load-block">
-                            <button id="saveBtn" onclick="save()">儲存</button>
-                            <button id="loadBtn" onclick="load()">載入</button>
+                            <button id="saveBtn" onclick="saveContent()">儲存</button>
+                            <button id="loadBtn" onclick="loadContent()">載入</button>
                         </div>
                     </div>
                 </div>
-                <div class="result-section">
+                <div class="result-overview">
                     <div class="current-result">
                         <div class="result-title">
                             <h1>本次中籤</h1>
@@ -63,27 +63,42 @@
                 <div class="input-wrapper">
                     <textarea id="inputContent" placeholder="在這裡輸入內容..."></textarea>
                 </div>
-                <div class="settings">
-                    <div class="settings-title">
-                        <h1>選項</h1>
-                    </div>
-                    <div class="setting">
-                        <div class="setting-checkbox">
-                            <input id="auto-record" class="auto-record" type="checkbox" checked>
-                            <label class="auto-record-label" for="" >自動記錄</label>
-                            <input id="auto-content-remove" class="auto-content-remove" type="checkbox" checked>
-                            <label class="auto-content-remove-label" for="">自動刪除</label>
+                <div class="">
+                    <div class="settings">
+                        <div class="settings-title">
+                            <h1>選項</h1>
                         </div>
-                        <div class="setting-speed">
-                            <label for="">旋轉速度</label>
-                            <select name="" id="customSpinSpeed">
-                                <option value="95">很慢</option>
-                                <option value="94">慢</option>
-                                <option value="92" selected>正常</option>
-                                <option value="85">快</option>
-                                <option value="80">很快</option>
-                            </select>
-
+                        <div class="setting">
+                            <div class="setting-checkbox">
+                                <input id="auto-record" class="auto-record" type="checkbox" checked>
+                                <label class="auto-record-label" for="" >自動記錄</label>
+                                <input id="auto-content-remove" class="auto-content-remove" type="checkbox" checked>
+                                <label class="auto-content-remove-label" for="">自動刪除</label>
+                            </div>
+                            <div class="setting-speed">
+                                <label for="">旋轉速度</label>
+                                <select name="" id="customSpinSpeed">
+                                    <option value="95">很慢</option>
+                                    <option value="94">慢</option>
+                                    <option value="92" selected>正常</option>
+                                    <option value="85">快</option>
+                                    <option value="80">很快</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tools">
+                        <div class="tool-title">
+                            <h1>工具</h1>
+                        </div>
+                        <div class="batch">
+                            <h2>批量增加</h2>
+                            <div class="batch-input">
+                                <input id="start" type="text" placeholder="開始">
+                                <span>至</span>
+                                <input id="end" type="text" placeholder="結束">
+                            </div>
+                            <button id="bathBtn" onclick="batch()" class="batch-btn">增加</button>
                         </div>
                     </div>
                 </div>

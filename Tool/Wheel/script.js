@@ -1,6 +1,46 @@
+// 讀取指定名稱的 cookie
+function readCookie(name) {
+    const value = `; ${document.cookie}`; // 為了處理 cookie，添加分號
+    console.log('Current cookies:', document.cookie); // Debug log，顯示當前 cookie
+    const parts = value.split(`; ${name}=`); // 根據 cookie 名稱拆分
+    return parts.length === 2 ? parts.pop().split(';').shift() : null; // 返回 cookie 值，或返回 null
+}
+
+// 設置 cookie
+function setCookie(name, value, days) {
+    const expires = `expires=${new Date(Date.now() + days * 864e5).toUTCString()}`;
+    document.cookie = `${name}=${encodeURIComponent(value)}; ${expires}; path=/`;
+    console.log(`Cookie set: ${name}=${value}`); // 檢查設置的 cookie
+}
+
+// 初始化 textarea 的內容
+function initializeContent() {
+    const savedContent = readCookie("savedContent");
+    content.value = savedContent ? decodeURIComponent(savedContent) : DEFAULT_CONTENT;
+}
+
+// 儲存 textarea 的內容到 cookie
+function saveContent() {
+    setCookie("savedContent", inputContent.value, 3650); // 儲存 cookie，有效期 3650 天
+    alert("內容已儲存!"); // 提示用戶內容已儲存
+}
+
+// 讀取 cookie 中的內容並顯示在 textarea 中
+function loadContent() {
+    reset();
+    const savedContent = readCookie("savedContent");
+    if (savedContent) {
+        inputContent.value = decodeURIComponent(savedContent);
+        alert("內容已讀取!"); // 提示用戶內容已讀取
+    } else {
+        alert("沒有找到儲存的內容!"); // 如果沒有找到，則顯示提示
+    }
+}
+
 // 用戶資料輸入
 var inputContent = document.querySelector("#inputContent");
 var spinSpeedInput = document.querySelector("#customSpinSpeed");
+var isBatchMode = true;
 const DEFAULT_CONTENT = "1\n2\n3\n4\n5\n6";
 const displayResultElement = document.querySelector("#resultDisplay");
 const prizeRecordTable = document.querySelector("#recordList");
@@ -10,8 +50,8 @@ let wheelSegments = []; // 將 segments 定義為全局變量
 // 更新轉盤的選項
 function updateWheelSegments() {
     wheelSegments = inputContent.value.split('\n').filter(segment => segment.trim() !== ""); // 更新全局的 segments
-    if(wheelSegments == ""){
-        wheelSegments = "#"
+    if (wheelSegments.length === 0) {
+        wheelSegments = ["#"];
     }
 }
 
@@ -19,8 +59,8 @@ function updateWheelSegments() {
 function initializeWheelContent() {
     spinSpeedMultiplier = (0.9 + spinSpeedInput.value);
     inputContent.value = DEFAULT_CONTENT;
-    prizeRecordTable.innerHTML = ``
-    displayResultElement.textContent = "#"
+    prizeRecordTable.innerHTML = ``;
+    displayResultElement.textContent = "#";
     updateWheelSegments();
 }
 
@@ -114,22 +154,45 @@ function recordPrize() {
 
 // 顯示結果
 function showSpinResult() {
-    if(wheelSegments != "#"){
+    if (wheelSegments[0] != "#") {
         const numSegments = wheelSegments.length; // 獲取段數
         const winningSegmentIndex = Math.floor((numSegments - (rotationAngle % (2 * Math.PI)) / (2 * Math.PI / numSegments)) % numSegments);
         displayResultElement.textContent = wheelSegments[winningSegmentIndex];
         recordPrize();
         autoRemove();
-    }else{
+    } else {
         displayResultElement.textContent = "請輸入選項";
     }
 }
+
+// 批量生成數字
+function batch() {
+    if (isBatchMode) {
+        inputContent.value = ""; // 如果處於批量模式，清空內容
+    }
+    isBatchMode = false; // 退出批量模式
+
+    // 獲取用戶輸入的起始和結束數字
+    const start = parseInt(document.querySelector("#start").value);
+    const end = parseInt(document.querySelector("#end").value);
+
+    // 驗證輸入的數字
+    if (isNaN(start) || isNaN(end)) {
+        alert("請輸入有效的數字！"); // 提示用戶輸入有效數字
+        return; // 退出函數
+    }
+
+    // 從起始數字到結束數字進行迴圈
+    for (let i = start; i <= end; i++) {
+        inputContent.value += `${i}\n`; // 使用 \n 來進行換行
+    }
+}
+
 // 自動刪除
 function autoRemove() {
     var checkbox = document.getElementById('auto-content-remove');
 
     if (checkbox.checked) {
-        // 獲取贏得的區段索引
         const numSegments = wheelSegments.length;
         const winningSegmentIndex = Math.floor((numSegments - (rotationAngle % (2 * Math.PI)) / (2 * Math.PI / numSegments)) % numSegments);
         
@@ -146,12 +209,11 @@ function autoRemove() {
 function start() {
     startWheelSpin();
 }
-function reset(){
+
+function reset() {
     initializeWheelContent();
     renderWheel();
-
 }
-
 
 // 初始化轉盤
 initializeWheelContent();
