@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style/style.css">
+    <title>Lucky Draw</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <section class="wheel-section">
+        <div class="wheel-container">
+            <div class="wheel-row">
+                <div class="wheel-canvas-wrapper">
+                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <br>
+                    <div class="control-buttons">
+                        <button id="startBtn" onclick="start()">開始</button>
+                        <hr>
+                        <button id="resetBtn" onclick="reset()">重設</button>
+                        <hr>
+                        <div class="save-load-block">
+                            <button id="saveBtn" onclick="save()">儲存</button>
+                            <button id="loadBtn" onclick="load()">載入</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <div class="current-result">
+                        <div class="result-title">
+                            <h1>本次中籤</h1>
+                        </div>
+                        <div class="result-display">
+                            <h1 id="resultDisplay">#</h1>
+                        </div>
+                    </div>
+                    <div class="record-section">
+                        <div class="record-title">
+                            <h1>中籤紀錄</h1>
+                        </div>
+                        <div class="record-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>順序</th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody id="recordList" class="record-list-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wheel-row">
+                <div class="input-wrapper">
+                    <textarea id="inputContent" placeholder="在這裡輸入內容..."></textarea>
+                </div>
+                <div class="settings">
+                    <div class="settings-title">
+                        <h1>選項</h1>
+                    </div>
+                    <div class="setting">
+                        <div class="setting-checkbox">
+                            <input id="auto-record" class="auto-record" type="checkbox" checked>
+                            <label class="auto-record-label" for="" >自動記錄</label>
+                            <input id="auto-content-remove" class="auto-content-remove" type="checkbox" checked>
+                            <label class="auto-content-remove-label" for="">自動刪除</label>
+                        </div>
+                        <div class="setting-speed">
+                            <label for="">旋轉速度</label>
+                            <select name="" id="customSpinSpeed">
+                                <option value="95">很慢</option>
+                                <option value="94">慢</option>
+                                <option value="92" selected>正常</option>
+                                <option value="85">快</option>
+                                <option value="80">很快</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/script/bar.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -7,7 +7,8 @@ navbar.innerHTML = `
         <div class="dropdown">
             <button class="dropbtn">工具列表</button>
             <div class="dropdown-content">
-                <a href="/Tool/ClassLotterySystem/index.html">班級抽籤</a>
+                <a href="/Tool/ClassLotterySystem/index.html">班級抽籤純數字</a>
+                <a href="/Tool/Wheel/index.html">班級抽籤轉盤</a>
             </div>
         </div>
         <!-------------------------------------------->
