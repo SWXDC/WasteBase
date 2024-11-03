@@ -10,6 +10,9 @@ let wheelSegments = []; // 將 segments 定義為全局變量
 // 更新轉盤的選項
 function updateWheelSegments() {
     wheelSegments = inputContent.value.split('\n').filter(segment => segment.trim() !== ""); // 更新全局的 segments
+    if(wheelSegments == ""){
+        wheelSegments = "#"
+    }
 }
 
 // 初始化轉盤內容
@@ -111,11 +114,15 @@ function recordPrize() {
 
 // 顯示結果
 function showSpinResult() {
-    const numSegments = wheelSegments.length; // 獲取段數
-    const winningSegmentIndex = Math.floor((numSegments - (rotationAngle % (2 * Math.PI)) / (2 * Math.PI / numSegments)) % numSegments);
-    displayResultElement.textContent = wheelSegments[winningSegmentIndex];
-    recordPrize();
-    autoRemove();
+    if(wheelSegments != "#"){
+        const numSegments = wheelSegments.length; // 獲取段數
+        const winningSegmentIndex = Math.floor((numSegments - (rotationAngle % (2 * Math.PI)) / (2 * Math.PI / numSegments)) % numSegments);
+        displayResultElement.textContent = wheelSegments[winningSegmentIndex];
+        recordPrize();
+        autoRemove();
+    }else{
+        displayResultElement.textContent = "請輸入選項";
+    }
 }
 // 自動刪除
 function autoRemove() {
