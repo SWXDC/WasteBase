@@ -1,1 +1,1 @@
-# [https://wastebase.xyz/](網站)
+# (https://wastebase.xyz/)[網站]
